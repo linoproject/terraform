@@ -40,10 +40,12 @@ data template_file "metadataconfig" {
   template = file("${path.module}/nodes/common/metadata.yaml")
   vars = {
     ip = "${each.value.ip}"
+    netmask = "${each.value.netmask}"
     hostname = "${each.value.hostname}"
     instance_id = "${each.value.vmname}"
     gw = "${var.vm_env.gw}"
     dns = "${var.vm_env.dns}"
+    
   }
 }
 

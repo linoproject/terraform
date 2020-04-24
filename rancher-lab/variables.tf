@@ -47,6 +47,7 @@ variable "vms" {
         datacenter = string
         hostname = string
         ip = string
+        netmask = string
     }))
 }
 

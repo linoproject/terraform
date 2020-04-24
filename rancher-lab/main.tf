@@ -57,5 +57,18 @@ resource vsphere_virtual_machine "allvms" {
     "guestinfo.userdata.encoding" = "base64"
   }
 
+  provisioner "remote-exec" {
+    inline = [
+       "sudo cloud-init status --wait"
+    ]
+    connection {
+			host = each.value.ip
+			type     = "ssh"
+			user     = each.value.user
+			password = each.value.password
+		}
+  }
+
 }
+
 
