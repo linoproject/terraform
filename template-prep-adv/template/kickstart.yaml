@@ -1,0 +1,45 @@
+#cloud-config 
+chpasswd: #Change your local password here
+    list: |
+      ${user}:${password}
+    expire: false
+users:
+  - default #Define a default user
+  - name: ${user}
+    gecos: ${user}
+    lock_passwd: false
+    groups: sudo, users, admin
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+system_info: 
+  default_user:
+    name: ubuntu
+    lock_passwd: false
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+#disable_root: false #Enable root acce
+ssh_pwauth: yes #Use pwd to access (otherwise follow official doc to use ssh-keys)
+random_seed:
+    file: /dev/urandom
+    command: ["pollinate", "-r", "-s", "https://entropy.ubuntu.com"]
+    command_required: true
+package_upgrade: true
+packages:
+  - python3-pip #Dependency package for cur
+  - docker
+  - docker.io  
+  - apt-transport-https
+runcmd:
+  - curl -sSL https://raw.githubusercontent.com/vmware/cloud-init-vmware-guestinfo/master/install.sh | sh - #Install cloud-init
+  - sudo su -c "ssh-keygen -b 2048 -t rsa -f /home/ubuntu/.ssh/id_rsa -N \"\"" ubuntu
+  - sudo su -c "cat /home/ubuntu/.ssh/id_rsa.pub >> /home/ubuntu/.ssh/authorized_keys" ubuntu
+  - sudo wget -O /usr/local/bin/rke https://github.com/rancher/rke/releases/download/v1.0.2/rke_linux-amd64 && chmod +x /usr/local/bin/rke
+  - curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+  - echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
+  - apt-get update && apt-get install -y kubectl
+  - wget -O /tmp/helm.tar.gz https://get.helm.sh/helm-v3.0.2-linux-amd64.tar.gz 
+  - tar -C /tmp/ -zxf /tmp/helm.tar.gz && mv /tmp/linux-amd64/helm /usr/local/bin/helm && chmod +x /usr/local/bin/helm
+  - rm -rf /tmp/linux-amd64 && rm -f helm.tar.gz
+  - usermod -aG docker ubuntu
+power_state:
+  timeout: 5
+  mode: reboot

@@ -13,6 +13,22 @@ variable "vsphere_env" {
     }
 }
 
+variable "domain_env" {
+    type = object({
+        dns_server = string
+        user = string
+        password = string
+        domain_name = string
+    })
+    default = {
+        dns_server = "dns1"
+        user = "administrator"
+        password = "SuperPassw0rd!"
+        domain_name = "mydomain.tld"
+    }
+}
+
+
 variable "vm_env" {
     type = object({
         gw = string
@@ -37,6 +53,8 @@ variable "k8s_master_env" {
 
 variable "vms" {
     type = map(object({
+        vCPU = number
+        vMEM = number
         vmname = string
         datastore = string
         network = string
@@ -46,6 +64,7 @@ variable "vms" {
         cluster = string
         datacenter = string
         hostname = string
+        domain_name = string
         ip = string
         netmask = string
     }))

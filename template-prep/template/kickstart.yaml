@@ -28,5 +28,5 @@ packages:
 runcmd:
    - curl -sSL https://raw.githubusercontent.com/vmware/cloud-init-vmware-guestinfo/master/install.sh | sh - #Install cloud-init
 power_state:
-  timeout: 10
+  timeout: 5
   mode: reboot

@@ -4,4 +4,4 @@ packages:
   - docker
   - docker.io
 runcmd:
-    - mkdir -p /mnt/sharedfolder
+  - mkdir -p /mnt/sharedfolder
