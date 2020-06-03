@@ -31,7 +31,7 @@ vms = {
         datacenter = "HomeLabWorkload"
         network = "lablan"
         cluster = "workload"
-        template = "ubuntu1804templateCloudInitAdv" // Here the template you have built with 
+        template = "ubuntu1804templateCloudInitAdv" // Here the name of template built template-pre-adv
         ip = "<rancher_ip>"
         netmask = "24" 
 
