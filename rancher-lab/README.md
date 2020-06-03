@@ -1,6 +1,6 @@
 # Deploy Rancher with Cloud-init and Terraform
 
-The full example is here: link
+The full example is here: [link](https://blog.linoproject.net/deliver-rancher-with-cloud-init-and-terraform/)
 
 In order to test this code you must have:
 1. Windows Server 2008-2012 with Active Directory and DNS (or a Windows DNS)
@@ -22,7 +22,7 @@ domain_env = {
 }
 
 vms = {
-    rancher = {
+    rancher = { 
         vCPU = 2
         vMEM = 4096
         vmname = "rancher"
