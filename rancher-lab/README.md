@@ -7,7 +7,7 @@ In order to test this code you must have:
 2. A prepared template with the basic components for Rancher [link](./../template-prep-adv)
 3. terraform.tvars as the follwing example:
    
-```json
+```ruby
 vsphere_env = {
     user     = "administrator@vsphere.local"
     password = "SuperPassword1!"
